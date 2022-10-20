@@ -1,7 +1,10 @@
 ﻿import os
 import cv2 as cv
 import imageOperation as im
-
+import sys
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
 
 # 查找目录是否存在
 def file_find(filePath):
@@ -10,12 +13,17 @@ def file_find(filePath):
 
 
 # 生成目录
-def make_dir(filePath):
-    if file_find(filePath):
-        print("目录已存在")
+def make_dir(dir_pth):
+    '''
+    自动检查dir_pth是否存在，若存在，返回真，若不存在创建该路径，并返回假
+    :param dir_pth: 路径
+    :return: bool
+    '''
+    if os.path.exists(dir_pth):  ##目录存在，返回为真
+        return True
     else:
-        os.makedirs(filePath)
-        print("目录创建完成!")
+        os.makedirs(dir_pth)
+        return False
 
 
 # 返回filePath下以后缀suffix结尾的文件绝对路径的list对象
@@ -43,10 +51,10 @@ def get_all_files_pth(filePath, suffix):
     return finalList
 
 
-path = "E:/python_test_workplace"  # 给定文件目录
-# result = get_fpths_from_dir(path)  # 调用函数获取path目录下以suffix结尾的文件
-result = get_all_files_pth(path, 'jpg')  # 调用函数获取path目录下所有以jpg结尾的文件
-# print(result)
-for i in result:
-    resultDic = im.cal_mean_std(i)
-    print(resultDic)
+# path = "E:/python_test_workplace"  # 给定文件目录
+# # result = get_fpths_from_dir(path)  # 调用函数获取path目录下以suffix结尾的文件
+# result = get_all_files_pth(path, 'jpg')  # 调用函数获取path目录下所有以jpg结尾的文件
+# # print(result)
+# for i in result:
+#     resultDic = im.cal_mean_std(i)
+#     print(resultDic)
